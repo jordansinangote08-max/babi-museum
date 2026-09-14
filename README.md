@@ -2,57 +2,84 @@
 
 A private, mobile-first digital museum for Jordan and Jirby, designed to be opened from an NFC card.
 
-## What is included
+No build step, no backend, no accounts, no analytics, no external data storage. Three files and a folder of assets.
+
+## What is inside
 
 - Monthly opening window: every 25th and 26th, Philippine time
-- First-visit Baguio identity question with three funny wrong-attempt messages
+- First-visit Baguio identity question, with three increasingly unimpressed wrong-attempt messages
 - Recognized-device return visits via `localStorage`
-- Site-wide `Those Eyes` soundtrack that pauses for songs in the Our Songs room
-- 17 chronological museum exhibits
-- Five-photo full-screen swipe gallery + reserved sixth frame
+- A switchable museum soundtrack that keeps playing as you walk
+- 17 chronological exhibits, unlocked in order
+- An **admission ticket** issued on entry, stamped once per exhibit, with a serial number for the visit
+- **Wall labels** on the artifacts: accession number, date, medium, and credit line, written by the curator
+- Six-photo full-screen swipe gallery plus a reserved seventh frame; each photograph tints the wall it hangs on
 - Reasons I Love You interactive cards
 - Four-question Boyfriend Quiz
 - Reopenable Open When envelopes
 - Sealed To My Babi letter
-- Future Collection
+- Future Collection, drawn as abstract silhouettes — never invented future photographs
 - Classified hold-to-open Secret Exhibit
 - Permanent local guestbook entry
-- First-visit record, current-visit map/progress, reset controls
-- Mobile/tablet, portrait/landscape layouts
-- No backend, accounts, analytics, or external data storage
+- Museum map, visit progress, and reset controls
+- Mobile, tablet and desktop; portrait and landscape
+- Full `prefers-reduced-motion` support
 
 ## Preview locally
 
-Because the real museum only opens on the 25th and 26th, add `?preview` while testing:
+The real museum only opens on the 25th and 26th, so add `?preview` while testing:
 
 ```text
 http://localhost:8080/?preview
 ```
 
-Serve the folder with any static server. For example, if Node is installed:
-
-```bash
-npx http-server . -p 8080
-```
-
-or with Python:
+Serve the folder with any static server:
 
 ```bash
 python3 -m http.server 8080
+# or
+npx http-server . -p 8080
 ```
 
-## Deploy to GitHub Pages
+## Photographs
 
-This project is intentionally build-free. Upload the whole folder to a GitHub repository and enable GitHub Pages from the repository root, or use the included Pages workflow.
+Source images live in `assets/photos/`. The site serves responsive WebP and JPEG
+derivatives from `assets/photos/opt/`, which is what keeps the museum quick on a
+phone — a 2480px original is never sent to a 390px screen.
 
-The NFC card should store the final GitHub Pages URL, for example:
+If you add or replace a photograph, regenerate the derivatives:
+
+```bash
+pip install pillow
+python3 scripts/optimize-photos.py
+```
+
+The script is idempotent; commit both the source image and the generated files.
+
+## Deploy
+
+See `DEPLOY_TO_GITHUB.md` for GitHub Pages, and `NFC_SETUP.md` for writing the NTAG215 card.
+
+The NFC card should store the final Pages URL, for example:
 
 ```text
 https://YOUR-USERNAME.github.io/museum-of-us/
 ```
 
-Do not add `?preview` to the NFC URL.
+Do not write `?preview` to the card.
 
 ## Important privacy note
 
-The Baguio question is a romantic gate, not cryptographic security. Because this is a static site, someone who deliberately inspects the JavaScript source can discover the answer and private text. The guestbook and remembered-device data are stored only in that browser's `localStorage`.
+The Baguio question is a romantic gate, not cryptographic security. Because this
+is a static site, anyone who deliberately inspects the JavaScript source can
+discover the answer and the private text. The guestbook and remembered-device
+data are stored only in that browser's `localStorage`.
+
+## A note on the code
+
+`app.js` renders declaratively from a single `state` object, but it **morphs**
+the existing DOM instead of replacing `innerHTML`. That matters: the old build
+rebuilt the entire page on every tap, which reloaded images and threw away the
+photo gallery's scroll position. Anything set imperatively on a node — a class,
+an inline style — would now be wiped by the next render, so state belongs in
+`state`, not on the DOM.

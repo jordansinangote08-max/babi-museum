@@ -4,17 +4,30 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#f3ead9" />
+  <meta name="color-scheme" content="light" />
   <meta name="description" content="Museum of Us — a private exhibition curated by Jordan for one visitor only." />
+  <meta name="robots" content="noindex, nofollow" />
   <title>Museum of Us</title>
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23f3ead9'/%3E%3Ccircle cx='16' cy='16' r='10' fill='%235b1422'/%3E%3Ctext x='16' y='21.5' font-family='Georgia,serif' font-size='14' fill='%23f3ead9' text-anchor='middle'%3EJ%3C/text%3E%3C/svg%3E">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Two families only. Loaded without blocking the first paint; the fallback
+       stack is metric-adjacent so the swap does not shift the layout. -->
+  <link rel="stylesheet" media="print" onload="this.media='all'"
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600&family=DM+Serif+Display:ital@0;1&display=swap">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600&family=DM+Serif+Display:ital@0;1&display=swap">
+  </noscript>
+
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
   <div id="app"></div>
-  <audio id="background-audio" preload="auto" loop src="./assets/audio/those-eyes.mp3"></audio>
-  <audio id="song-audio" preload="metadata"></audio>
+  <!-- preload="none": the soundtrack is 2.6 MB and nothing can play it before
+       the visitor has interacted anyway. It loads on the first gesture. -->
+  <audio id="background-audio" preload="none" loop src="./assets/audio/those-eyes.mp3"></audio>
   <script type="module" src="./app.js"></script>
 </body>
 </html>
