@@ -661,13 +661,31 @@ textarea:focus-visible {
   background: linear-gradient(145deg, #3a2b24, #6f543f);
   box-shadow: inset 0 0 0 6px #2d211c, inset 0 0 0 8px rgba(226, 194, 145, .35);
 }
+/* The strap is a real strap. It used to be two box-shadow circles that read as
+   blobs stuck to the watch face. */
+.hall-object.watch .object-art i {
+  width: 32px; height: 122px;
+  border-radius: 9px;
+  background: linear-gradient(90deg, #2b1f1a, #503a2e 45%, #2b1f1a);
+  box-shadow: inset 0 0 0 1px rgba(226, 194, 145, .18);
+}
 .hall-object.watch .object-art::before {
+  z-index: 2;
   width: 62px; height: 62px;
-  border: 8px solid var(--wine);
+  border: 7px solid var(--wine);
   border-radius: 50%;
-  background: var(--paper-deep);
-  box-shadow: 0 -48px 0 -22px #362821, 0 48px 0 -22px #362821, 0 0 0 3px rgba(255, 238, 196, .26);
+  background: radial-gradient(circle at 38% 32%, #fdf6e7, var(--paper-deep) 70%);
+  box-shadow: 0 0 0 3px rgba(255, 238, 196, .26), 0 6px 12px rgba(30, 18, 12, .35);
   animation: watchPulse 3.4s ease-in-out infinite;
+}
+/* the hands */
+.hall-object.watch .object-art::after {
+  z-index: 3;
+  width: 3px; height: 17px;
+  border-radius: 2px;
+  background: var(--wine);
+  transform-origin: 50% 100%;
+  transform: translateY(-8px) rotate(38deg);
 }
 
 .hall-object.coffee .object-art { background: radial-gradient(circle at 50% 68%, rgba(102, 69, 48, .13), transparent 48%); }
@@ -678,9 +696,9 @@ textarea:focus-visible {
   background: #ece1ce;
 }
 .hall-object.coffee .object-art::after {
-  width: 28px; height: 30px; right: 21px; bottom: 48px;
+  width: 26px; height: 34px; right: 22px; bottom: 46px;
   border: 5px solid #6d4d39; border-left: 0;
-  border-radius: 0 22px 22px 0;
+  border-radius: 0 50% 50% 0 / 0 50% 50% 0;
 }
 .hall-object.coffee i {
   width: 5px; height: 46px; top: 14px;
@@ -761,7 +779,11 @@ textarea:focus-visible {
 .hall-object.record .object-art::before {
   width: 130px; height: 130px;
   border-radius: 50%;
-  background: radial-gradient(circle, #d8c8aa 0 8px, var(--wine) 9px 24px, #1d1918 25px 100%);
+  /* same grooves and sheen as the record on the Our Songs cards */
+  background:
+    linear-gradient(118deg, rgba(255, 255, 255, .13) 0 14%, transparent 26% 72%, rgba(255, 255, 255, .07) 84% 100%),
+    repeating-radial-gradient(circle at 50% 50%, rgba(255, 255, 255, .06) 0 1px, transparent 1px 4px),
+    radial-gradient(circle at 50% 50%, #d8c8aa 0 7px, var(--wine) 7px 24px, #1d1918 24px 100%);
   box-shadow: 0 0 0 7px rgba(81, 51, 39, .16), 0 16px 25px rgba(45, 30, 24, .23);
   animation: spinSlow 10s linear infinite;
 }
@@ -772,7 +794,26 @@ textarea:focus-visible {
   border: 2px solid var(--wine);
   box-shadow: 0 14px 20px rgba(58, 35, 22, .14);
 }
-.hall-object.envelopes .object-art::after { width: 36px; height: 36px; border-radius: 50%; background: var(--wine); }
+/* The flap. Without it this was a rectangle with a dot in the middle, which
+   read as a flag rather than an envelope. Two diagonals drawn with gradients. */
+.hall-object.envelopes .object-art i {
+  width: 126px; height: 54px;
+  top: calc(50% - 41px);
+  background:
+    linear-gradient(to top right,    transparent calc(50% - 1px), var(--wine) calc(50% - 1px),
+                    var(--wine) calc(50% + 1px), transparent calc(50% + 1px)) left / 50% 100% no-repeat,
+    linear-gradient(to bottom right, transparent calc(50% - 1px), var(--wine) calc(50% - 1px),
+                    var(--wine) calc(50% + 1px), transparent calc(50% + 1px)) right / 50% 100% no-repeat;
+}
+/* the wax seal, sitting where the flap closes */
+.hall-object.envelopes .object-art::after {
+  z-index: 2;
+  width: 26px; height: 26px;
+  top: calc(50% + 4px);
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 30%, #8a2d40, var(--wine) 65%);
+  box-shadow: 0 3px 6px rgba(48, 10, 18, .35);
+}
 
 .hall-object.letter .object-art::before {
   width: 120px; height: 145px;
@@ -1439,8 +1480,14 @@ textarea:focus-visible {
 .song-card .record {
   width: 74px; height: 74px;
   border-radius: 50%;
-  background: radial-gradient(circle, var(--paper-deep) 0 6px, currentColor 7px 9px, #241f1e 10px 100%);
-  box-shadow: 0 8px 18px rgba(45, 30, 24, .2);
+  background:
+    /* the light catching the disc */
+    linear-gradient(118deg, rgba(255, 255, 255, .16) 0 14%, transparent 26% 72%, rgba(255, 255, 255, .09) 84% 100%),
+    /* grooves */
+    repeating-radial-gradient(circle at 50% 50%, rgba(255, 255, 255, .075) 0 1px, transparent 1px 3.5px),
+    /* label and centre hole */
+    radial-gradient(circle at 50% 50%, var(--paper-deep) 0 4px, currentColor 4px 13px, #241f1e 13px 100%);
+  box-shadow: 0 8px 18px rgba(45, 30, 24, .2), inset 0 0 0 1px rgba(255, 255, 255, .07);
 }
 .song-card.playing .record { animation: spinSlow 4s linear infinite; }
 .song-card:hover, .song-card.playing { background: var(--wine); color: var(--paper); }
@@ -1465,17 +1512,30 @@ textarea:focus-visible {
   background: #eadfce;
   border-color: var(--soft-line);
 }
+/* The flap: two diagonals meeting under the seal. This was a single tilted
+   rule running off both edges, which read as a crease, not an envelope. */
 .envelope::before {
   content: "";
   position: absolute;
-  left: -10%; right: -10%; top: -18%;
-  height: 64%;
-  border-bottom: 1px solid var(--wine-soft);
-  transform: rotate(7deg);
-  transition: transform .4s var(--ease);
+  left: 0; right: 0; top: 0;
+  height: 40%;
+  transition: height .4s var(--ease);
+  background:
+    linear-gradient(to top right,    transparent calc(50% - .5px), var(--wine-soft) calc(50% - .5px),
+                    var(--wine-soft) calc(50% + .5px), transparent calc(50% + .5px)) left / 50% 100% no-repeat,
+    linear-gradient(to bottom right, transparent calc(50% - .5px), var(--wine-soft) calc(50% - .5px),
+                    var(--wine-soft) calc(50% + .5px), transparent calc(50% + .5px)) right / 50% 100% no-repeat;
+}
+/* the paper edge along the bottom of the envelope */
+.envelope::after {
+  content: "";
+  position: absolute;
+  left: 12%; right: 12%; bottom: 14%;
+  height: 1px;
+  background: rgba(91, 20, 34, .14);
 }
 .envelope:hover { transform: translateY(-3px); border-color: var(--wine); }
-.envelope:hover::before { transform: rotate(7deg) translateY(-8px); }
+.envelope:hover::before { height: 34%; }
 .envelope strong { position: relative; z-index: 1; font-family: var(--display); font-size: 1.5rem; font-weight: 400; }
 
 .wax {
@@ -1484,8 +1544,9 @@ textarea:focus-visible {
   width: 44px; height: 44px;
   display: grid;
   place-items: center;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #7d2436, var(--wine) 60%);
+  /* an organic rim, because wax pressed with a stamp never comes out round */
+  border-radius: 47% 53% 52% 48% / 51% 47% 53% 49%;
+  background: radial-gradient(circle at 35% 30%, #8a2d40, var(--wine) 58%, #4a0f1c 100%);
   color: var(--paper);
   font-family: var(--display);
   box-shadow: 0 4px 10px rgba(58, 12, 22, .3), inset 0 -2px 4px rgba(0, 0, 0, .25);

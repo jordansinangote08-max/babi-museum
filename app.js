@@ -1167,7 +1167,9 @@ function mapIcon() {
   return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 6.5 8.2 4l7.6 2.5L21 4v13.5L15.8 20l-7.6-2.5L3 20V6.5Z"/><path d="M8.2 4v13.5M15.8 6.5V20"/></svg>`;
 }
 function gearIcon() {
-  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2.5h0a1.9 1.9 0 0 1 1.9 1.9v.4a1.9 1.9 0 0 0 2.8 1.6l.3-.2a1.9 1.9 0 0 1 2.4.5l.1.1a1.9 1.9 0 0 1-.4 2.6l-.3.2a1.9 1.9 0 0 0 .7 3.4h.4a1.9 1.9 0 0 1 0 3.8h-.4a1.9 1.9 0 0 0-1.4 2.9l.2.3a1.9 1.9 0 0 1-.5 2.4l-.1.1a1.9 1.9 0 0 1-2.6-.4l-.2-.3a1.9 1.9 0 0 0-3.4.7v.4a1.9 1.9 0 0 1-3.8 0v-.4a1.9 1.9 0 0 0-2.9-1.4l-.3.2a1.9 1.9 0 0 1-2.4-.5l-.1-.1a1.9 1.9 0 0 1 .4-2.6l.3-.2A1.9 1.9 0 0 0 4.9 14h-.4a1.9 1.9 0 0 1 0-3.8h.4a1.9 1.9 0 0 0 1.4-2.9l-.2-.3a1.9 1.9 0 0 1 .5-2.4l.1-.1a1.9 1.9 0 0 1 2.6.4l.2.3A1.9 1.9 0 0 0 12 4.8Z"/></svg>`;
+  /* Generated geometrically (8 teeth, exact symmetry) — the previous
+     hand-written path rendered as a lumpy blob. */
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="M10.24 2.97A9.2 9.2 0 0 1 13.76 2.97L13.32 5.23A6.9 6.9 0 0 1 15.86 6.28L17.14 4.37A9.2 9.2 0 0 1 19.63 6.86L17.72 8.14A6.9 6.9 0 0 1 18.77 10.68L21.03 10.24A9.2 9.2 0 0 1 21.03 13.76L18.77 13.32A6.9 6.9 0 0 1 17.72 15.86L19.63 17.14A9.2 9.2 0 0 1 17.14 19.63L15.86 17.72A6.9 6.9 0 0 1 13.32 18.77L13.76 21.03A9.2 9.2 0 0 1 10.24 21.03L10.68 18.77A6.9 6.9 0 0 1 8.14 17.72L6.86 19.63A9.2 9.2 0 0 1 4.37 17.14L6.28 15.86A6.9 6.9 0 0 1 5.23 13.32L2.97 13.76A9.2 9.2 0 0 1 2.97 10.24L5.23 10.68A6.9 6.9 0 0 1 6.28 8.14L4.37 6.86A9.2 9.2 0 0 1 6.86 4.37L8.14 6.28A6.9 6.9 0 0 1 10.68 5.23Z"/><circle cx="12" cy="12" r="3.1"/></svg>`;
 }
 
 /* ---------- 6. Installations ----------
